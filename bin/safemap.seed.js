@@ -1,5 +1,5 @@
 const safemap = require("../models/profile.model");
-const restaurants = require("./restaurants.json"); //<--?????
+const warnings = require("./warnings.json"); //<--?????
 
 (async ()=> {
     const mongoose = require ("mongoose");
@@ -20,7 +20,7 @@ mongoose
         await safemap.deleteMany();
         console.log("DB cleaned");
 
-        const modelSafeMap = safemap.map(
+        const modelSafeMap = warnings.map(
             ({
                 input    // <-- lOCATION???
             })=> {
@@ -29,8 +29,8 @@ mongoose
                 };
             }
         );
-        const safemapDB = await safemap.insertMany(modelSafeMap);
-        console.log ("Succesful DB Seed with SafeMap ${safemapDB}!");
+        const warningDB = await safemap.insertMany(modelSafeMap);
+        console.log ("Succesful DB Seed with warnings ${warningDB}!");
     }
     catch (error) {
         console.log("error", error);
