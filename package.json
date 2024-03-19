@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "seed": "node bin/restaurants.seed.js"
+    "seed": "node bin/safemap.seed.js"
   },
   "dependencies": {
     "cookie-parser": "^1.4.6",

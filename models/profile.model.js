@@ -2,9 +2,9 @@ const { Schema, model } = require ("mongoose");
 
 const safeMapSchema = new Schema(
     {
-name: {
+input: {
     type: String,
-    required: [true, "Debes escribir algo para poder introducir el aviso"],
+    required: [true, "Debes escribir algo para poder introducir el aviso"], //<-- AQUÍ IRÍA TAMBIÉN LOCATION O GOOGLE MAPS ME VA A DAR CÓDIGO PARA QUE APAREZCA???
     trim: true
 },
 

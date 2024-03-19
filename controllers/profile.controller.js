@@ -1,4 +1,3 @@
-const { Types } = require("mongoose");
 const safeMap = require("../models/profile.model");
 
 
@@ -6,7 +5,7 @@ const safeMap = require("../models/profile.model");
 
 const getSafeMap = 
 
-router.get('/safemap', async (req, res) => {
+router.get('/safemap', async (_req, res) => {
     try {
         const form = await safeMap.find();
         res.send();
@@ -23,7 +22,7 @@ router.post('/safemap', async (req, res) => {
     try {
         const newSafeMapEntry = new safemap(req.body);
         await newSafeMapEntry.save();
-        res.send('¡Gracias!Tu aviso ha sido añadido a SafeMap con éxito'); //AQUÍ IRÍA LA PÁGINA 'SAFEMAP/ADDED'
+        res.send('¡Gracias!Tu aviso ha sido añadido a SafeMap con éxito'); 
     } catch (error) {
         res.status(400).send('Error al procesar la solicitud: ' + error);
     }
@@ -40,10 +39,10 @@ router.get('/safemap/:added', (req, res) => {
 
 const contributions = 
 // RUTA PARA MOSTRAR TODAS LAS CONTRIBUCIONES
-router.get('/contributions', async (req, res) => {
+router.get('/contributions', async (_req, res) => {
     try {
         // Obtener todos los documentos de safemap
-        const allSafeMapEntries = await safemap.find();
+        const allSafeMapEntries = await safemap.find().sort({ createdAt: -1}).lean();
         res.json(allSafeMapEntries);
     } catch (error) {
         res.status(500).json({ message: error.message });
