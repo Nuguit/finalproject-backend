@@ -1,6 +1,7 @@
 const User = require ("../models/user.model");
 const {creaPass}= require("../utils/auth");
 const jwt = require("jsonwebtoken");
+const passportSecret = process.env.PASSPORT_SECRET;
 
 const signup = async (req, res, next) => {
     try {
@@ -33,7 +34,7 @@ const login = async (req,res) => {
             return res.status(401).json({ message: 'Error al iniciar sesión' });
         }
     res.json ({
-     token: jwt.sign ({user: req.user._id}, "5A7B9C3ñ", {expiresIn: "1d"}),
+     token: jwt.sign ({user: req.user._id}, passportSecret, {expiresIn: "1d"}),
     });
 } catch (error) {
     res.status(500).json({ message: 'Error al iniciar sesión', error: error.message });
