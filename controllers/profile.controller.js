@@ -3,22 +3,18 @@ const safeMap = require("../models/profile.model");
 
 //RUTA PARA ENSEÑAR EL FORMULARIO A RELLENAR EN EL SAFEMAP
 
-const getSafeMap = 
-
-router.get('/safemap', async (_req, res) => {
+const getSafeMap = async (_req, res) => {
     try {
         const form = await safeMap.find();
         res.send();
     } catch (error) {
         res.status(500).send('Error: ' + error);
     }
-});
+};
 
 
 
-const postSafeMap = 
-//RUTA PARA AÑADIR Y GUARDAR EL NUEVO AVISO
-router.post('/safemap', async (req, res) => {
+const postSafeMap = async (req, res) => {
     try {
         const newSafeMapEntry = new safemap(req.body);
         await newSafeMapEntry.save();
@@ -26,20 +22,16 @@ router.post('/safemap', async (req, res) => {
     } catch (error) {
         res.status(400).send('Error al procesar la solicitud: ' + error);
     }
-});
+};
 
 
 
-const added = 
-// RUTA UNA VEZ AÑADIDO, PÁGINA QUE SALDRÍA AL COMPLETAR CON ÉXITO LA RUTA ANTERIOR
-router.get('/safemap/added', (req, res) => {
+const added = async (req, res) => {
     const added = req.params.added
     res.send();
-});
+};
 
-const contributions = 
-// RUTA PARA MOSTRAR TODAS LAS CONTRIBUCIONES
-router.get('/contribuciones', async (_req, res) => {
+const contributions = async (_req, res) => {
     try {
         
         const allSafeMapEntries = await safemap.find().sort({ createdAt: -1}).lean();
@@ -47,7 +39,7 @@ router.get('/contribuciones', async (_req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
+};
 
 
 

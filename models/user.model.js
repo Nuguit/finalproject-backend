@@ -25,7 +25,7 @@ const userSchema = new Schema(
       trim: true,
     },
 
-    contributions: [{type: Schema.Types.ObjectId, ref: Safemap}] //<-- AQUÍ SE ALMACENARÍAN LAS CONTRIBUCIONES=MARCADORES DE GOOGLE MAPS?
+    contributions: [{type: Schema.Types.ObjectId, ref: "Safemap"}] //<-- AQUÍ SE ALMACENARÍAN LAS CONTRIBUCIONES=MARCADORES DE GOOGLE MAPS?
   },
   {
     timestamps: true,
