@@ -32,16 +32,16 @@ router.post('/safemap', async (req, res) => {
 
 const added = 
 // RUTA UNA VEZ AÑADIDO, PÁGINA QUE SALDRÍA AL COMPLETAR CON ÉXITO LA RUTA ANTERIOR
-router.get('/safemap/:added', (req, res) => {
+router.get('/safemap/added', (req, res) => {
     const added = req.params.added
     res.send();
 });
 
 const contributions = 
 // RUTA PARA MOSTRAR TODAS LAS CONTRIBUCIONES
-router.get('/contributions', async (_req, res) => {
+router.get('/contribuciones', async (_req, res) => {
     try {
-        // Obtener todos los documentos de safemap
+        
         const allSafeMapEntries = await safemap.find().sort({ createdAt: -1}).lean();
         res.json(allSafeMapEntries);
     } catch (error) {

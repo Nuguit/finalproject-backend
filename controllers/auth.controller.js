@@ -13,6 +13,7 @@ const signup = async (req, res, next) => {
             email: req.body.email,
             password: passwordCrypt,
             username: req.body.username,
+            contributions: req.body.contributions
             
         });
         res.json({error: false, contenido: result});
@@ -24,9 +25,19 @@ const signup = async (req, res, next) => {
 };
 
 const login = async (req,res) => {
+    try {
+        const { username, password } = req.body;
+        const user = await User.findOne({ where: { username } }); 
+
+        if (!user || !user.validPassword(password)) {
+            return res.status(401).json({ message: 'Error al iniciar sesión' });
+        }
     res.json ({
      token: jwt.sign ({user: req.user._id}, "5A7B9C3ñ", {expiresIn: "1d"}),
     });
+} catch (error) {
+    res.status(500).json({ message: 'Error al iniciar sesión', error: error.message });
+}
 };
 
 
