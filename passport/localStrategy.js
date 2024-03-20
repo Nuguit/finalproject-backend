@@ -4,12 +4,13 @@ const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const User = require("../models/user.model");
 const {validoPass} = require("../utils/auth");
+const passportSecret = process.env.PASSPORT_SECRET;
 
 passport.use(
     new JwtStrategy(
         {
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-            secretOrKey: "5A7B9C3ñ",
+            secretOrKey: passportSecret,
         },
         async function (jwtPayload, done) {
             try {
