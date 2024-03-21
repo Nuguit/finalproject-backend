@@ -1,10 +1,10 @@
-const safeMap = require("../models/profile.model");
+const safemap = require("../models/profile.model");
 
 
 const getSafeMap = async (_req, res) => {
     try {
-        const form = await safeMap.find();
-        res.send();
+        const form = await safemap.collection("contributions").find();
+        res.send(contributions);
     } catch (error) {
         res.status(500).send('Error: ' + error);
     }

@@ -8,7 +8,7 @@ const {
     
     
     router.post("/safeMap", postSafeMap); 
-    router.post("/safeMap/:added", added);
+    router.post("/safeMap/added", added);
 
 
     
