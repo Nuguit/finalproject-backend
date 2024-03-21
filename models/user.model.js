@@ -20,7 +20,7 @@ const userSchema = new Schema(
     },
     username: {
       type: String,
-      required: [true, '¡Sé creativ@! Elige un nombre de usuari@'],
+      required: [true, '¡Se creativ@! Elige un nombre de usuari@'],
       unique: true,
       trim: true,
     },

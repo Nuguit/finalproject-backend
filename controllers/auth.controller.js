@@ -13,8 +13,7 @@ const signup = async (req, res, next) => {
         const result = await User.create({
             email: req.body.email,
             password: passwordCrypt,
-            username: req.body.username,
-            contributions: req.body.contributions
+            username: req.body.username
             
         });
         res.json({error: false, contenido: result});
@@ -25,24 +24,19 @@ const signup = async (req, res, next) => {
     }
 };
 
-const login = async (req,res) => {
-    try {
-        const { username, password } = req.body;
-        const user = await User.findOne({ where: { username } }); 
-
-        if (!user || !user.validPassword(password)) {
-            return res.status(401).json({ message: 'Error al iniciar sesión' });
-        }
-    res.json ({
-     token: jwt.sign ({user: req.user._id}, passportSecret, {expiresIn: "1d"}),
+const login = (req, res) => {
+    res.json({
+      token: jwt.sign({ user: req.user._id}, passportSecret, { expiresIn: '1d' }),
     });
-} catch (error) {
-    res.status(500).json({ message: 'Error al iniciar sesión', error: error.message });
-}
-};
-
-
-
-module.exports = {
+  };
+  
+  const verify = (req, res) => {
+    res.json(req.user);
+  };
+  
+  module.exports = {
     signup,
-    login};
+    login,
+    verify
+  };
+

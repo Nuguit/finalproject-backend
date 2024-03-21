@@ -5,4 +5,6 @@ const authRoutes = require ("./auth.routes");
 router.use("/profile", profileRoutes);
 router.use("/auth", authRoutes);
 
+
+
 module.exports = router;

@@ -14,15 +14,12 @@ passport.use(
         },
         async function (jwtPayload, done) {
             try {
-                const user = await user.findById(jwtPayload.user);
+                const user = await User.findById(jwtPayload.user);
                 if(!user){
                     return done (null, false);
                 }
-                const newPayload = {
-                    user: user._id,
-                    email: user.email,
-                };
-                return done (null, newPayload);
+                
+                return done (null, user);
             } catch (error){
                 return done(error);
             }
@@ -37,12 +34,12 @@ passport.use(
     "login",
     new LocalStrategy(
         {
-            usernameField: "email",
+            usernameField: "username",
             passwordField: "password",
         },
-        async function (email,password, done) {
+        async function (username,password, done) {
             try {
-                let user = await User.findOne ({email}).select("+password");
+                let user = await User.findOne ({username}).select("+password");
                 if (!user) {
                     console.log("Usuario no encontrado");
                     return done (null, false);

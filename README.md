@@ -45,7 +45,7 @@ npm run dev
 
 | URL path                    | HTTP Method       | Response                          | Action                        |
 | :--------------------------:|:-----------------:| :--------------------------------:| :----------------------------:|
-| /safewalk/safemap           | GET               | [safemap]                         | Get Safemap with all the flags|
+| /safemap                    | GET               | [safemap]                         | Get Safemap with all the warnings|
 
 | /contributions              | GET               | [contributions]                   | Your contributions to the SafeMap |
 
@@ -56,12 +56,14 @@ npm run dev
 | /auth/signup                | POST              | [signup]                          | Create a new user             |
 | /auth/login                 | POST              | [login]                           | Log user in                   |
 
-## **Upload routes**:   //ESTA SERÍA POST O GET? PORQUE SE "RECIBE" LA INFO DE LA LISTA Y, A LA VEZ, ES LA PÁGINA QUE APARECE AL ENVIAR UN NUEVO AVISO AL FORMULARIO
+## **Upload routes**:   
 
 | URL path                    | HTTP Method       | Response                          | Action                        |
 | :--------------------------:|:-----------------:| :--------------------------------:| :----------------------------:|
-| /safewalk/safemap/:added    | POST              | [safemap/:added]                  | Warning added on the SafeMap 
+| /safemap/:added             | POST              | [safemap/:added]                  | Warning added on the SafeMap 
                                                                                         and prior contributions list  |
+| /safemap                    | POST              | [safemap]                         | Send coordinates and input 
+                                                                                        through Safemap
                                                                                         
                                                                                         
                                                                                         
