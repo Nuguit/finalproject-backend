@@ -1,8 +1,6 @@
 const safeMap = require("../models/profile.model");
 
 
-//RUTA PARA ENSEÑAR EL FORMULARIO A RELLENAR EN EL SAFEMAP
-
 const getSafeMap = async (_req, res) => {
     try {
         const form = await safeMap.find();
@@ -27,8 +25,8 @@ const postSafeMap = async (req, res) => {
 
 
 const added = async (req, res) => {
-    const added = req.params.added
-    res.send();
+    const addedMap = req.params.added;
+    res.send('Aviso añadido');
 };
 
 const contributions = async (_req, res) => {
