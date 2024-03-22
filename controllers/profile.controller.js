@@ -1,9 +1,9 @@
-const safemap = require("../models/profile.model");
+const Safemap = require("../models/profile.model");
 
 
 const getSafeMap = async (_req, res) => {
     try {
-        const form = await safemap.collection("contributions").find();
+        const form = await Safemap.find();
         res.send(contributions);
     } catch (error) {
         res.status(500).send('Error: ' + error);
@@ -14,13 +14,21 @@ const getSafeMap = async (_req, res) => {
 
 const postSafeMap = async (req, res) => {
     try {
-        const newSafeMapEntry = new safemap(req.body);
-        await newSafeMapEntry.save();
-        res.send('¡Gracias!Tu aviso ha sido añadido a SafeMap con éxito'); 
+        const { input, latitud, longitud } = req.body;
+    const newContribution = new Safemap({
+        input,
+        location: {
+          type: "Point",
+          coordinates: [longitud, latitud]
+        }
+      });
+      await newContribution.save();
+      res.status(201).send('Coordenadas almacenadas correctamente');
     } catch (error) {
-        res.status(400).send('Error al procesar la solicitud: ' + error);
+      console.error('Error al almacenar coordenadas:', error);
+      res.status(500).send('Error interno del servidor');
     }
-};
+  };
 
 
 
@@ -32,7 +40,7 @@ const added = async (req, res) => {
 const contributions = async (_req, res) => {
     try {
         
-        const allSafeMapEntries = await safemap.find().sort({ createdAt: -1}).lean();
+        const allSafeMapEntries = await Safemap.find().sort({ createdAt: -1}).lean();
         res.json(allSafeMapEntries);
     } catch (error) {
         res.status(500).json({ message: error.message });

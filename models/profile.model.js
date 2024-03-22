@@ -27,5 +27,8 @@ owner: {
     });
     safeMapSchema.index({'location': '2dsphere'});
 
-const safemap = model("Safemap", safeMapSchema)
-module.exports = safemap 
+
+
+
+const Safemap = model("Safemap", safeMapSchema)
+module.exports = Safemap 
