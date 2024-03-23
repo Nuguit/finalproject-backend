@@ -1,13 +1,13 @@
-const Safemap = require("../models/profile.model");
+const safemap = require("../models/profile.model");
 
 
 const getSafeMap = async (_req, res) => {
     try {
-        const form = await Safemap.find();
-        res.send(contributions);
-    } catch (error) {
-        res.status(500).send('Error: ' + error);
-    }
+        const allCoordinates = await safemap.find({}, { _id: 0, input: 1, location: 1 }).lean();
+    res.json(allCoordinates);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 
@@ -15,7 +15,7 @@ const getSafeMap = async (_req, res) => {
 const postSafeMap = async (req, res) => {
     try {
         const { input, latitud, longitud } = req.body;
-    const newContribution = new Safemap({
+    const newContribution = new safemap({
         input,
         location: {
           type: "Point",
@@ -40,7 +40,7 @@ const added = async (req, res) => {
 const contributions = async (_req, res) => {
     try {
         
-        const allSafeMapEntries = await Safemap.find().sort({ createdAt: -1}).lean();
+        const allSafeMapEntries = await safemap.find().sort({ createdAt: -1}).lean();
         res.json(allSafeMapEntries);
     } catch (error) {
         res.status(500).json({ message: error.message });

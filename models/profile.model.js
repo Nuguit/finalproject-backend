@@ -30,5 +30,5 @@ owner: {
 
 
 
-const Safemap = model("Safemap", safeMapSchema)
-module.exports = Safemap 
+const safemap = model("safemap", safeMapSchema)
+module.exports = safemap 
