@@ -32,11 +32,6 @@ const postSafeMap = async (req, res) => {
 
 
 
-const added = async (req, res) => {
-    const addedMap = req.params.added;
-    res.send('Aviso añadido');
-};
-
 const contributions = async (_req, res) => {
     try {
         
@@ -51,6 +46,6 @@ const contributions = async (_req, res) => {
 
 
 
-    module.exports = {getSafeMap , postSafeMap, added, contributions };
+    module.exports = {getSafeMap , postSafeMap, contributions };
 
 
