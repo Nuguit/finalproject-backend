@@ -31,8 +31,14 @@ const login = (req, res) => {
   };
   
   const verify = (req, res) => {
-    res.json(req.user);
+    
+    if (req.user) {
+       res.json({ success: true, user: req.user });
+    } else {
+      res.status(401).json({ success: false, message: "Unauthorized" });
+    }
   };
+  
   
   module.exports = {
     signup,

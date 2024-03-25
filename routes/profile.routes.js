@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-    getSafeMap, postSafeMap, contributions
+    getSafeMap, postSafeMap, contributions, editProfile
 } = require ("../controllers/profile.controller");
 
     router.get("/safeMap", getSafeMap);
@@ -9,7 +9,7 @@ const {
     
     router.post("/safeMap", postSafeMap); 
     
-
+    router.put("/tuperfil/:edit_id", editProfile);
 
     
     

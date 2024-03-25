@@ -34,12 +34,12 @@ passport.use(
     "login",
     new LocalStrategy(
         {
-            usernameField: "username",
+            usernameField: "email",
             passwordField: "password",
         },
-        async function (username,password, done) {
+        async function (email,password, done) {
             try {
-                let user = await User.findOne ({username}).select("+password");
+                let user = await User.findOne ({email}).select("+password");
                 if (!user) {
                     console.log("Usuario no encontrado");
                     return done (null, false);
