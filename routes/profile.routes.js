@@ -5,7 +5,7 @@ const {
 } = require ("../controllers/profile.controller");
 
     router.get("/safeMap",/*[passport.authenticate('jwt', { session: false })]*/ getSafeMap);
-    router.get("/contribuciones",[passport.authenticate('jwt', { session: false })], getSafeMapByOwner);
+    router.get("/contribuciones",/*[passport.authenticate('jwt', { session: false })],*/ getSafeMapByOwner);
     
     
     router.post("/safeMap", [passport.authenticate('jwt', { session: false })], postSafeMap); 
@@ -14,7 +14,7 @@ const {
     
 
 
-    router.delete("/tuperfil", [passport.authenticate('jwt', { session: false })], deleteUser )
+    router.delete("/tuperfil/:id", [passport.authenticate('jwt', { session: false })], deleteUser )
     
 
 
