@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const passport = require("passport");
 const {
-    getSafeMap, getSafeMapByOwner, postSafeMap, editProfile
+    getSafeMap, getSafeMapByOwner, postSafeMap, editProfile, deleteUser
 } = require ("../controllers/profile.controller");
 
     router.get("/safeMap",[passport.authenticate('jwt', { session: false })], getSafeMap);
@@ -10,9 +10,11 @@ const {
     
     router.post("/safeMap", [passport.authenticate('jwt', { session: false })], postSafeMap); 
     
-    router.put("/tuperfil/",[passport.authenticate('jwt', { session: false })], editProfile);
-
+    router.put("/tuperfil",[passport.authenticate('jwt', { session: false })], editProfile);
     
+
+
+    router.delete("/tuperfil", [passport.authenticate('jwt', { session: false })], deleteUser )
     
 
 

@@ -1,6 +1,6 @@
 const safemap = require("../models/profile.model");
 const User = require("../models/user.model");
-
+const { Types } = require('mongoose');
 
 const getSafeMap = async (_req, res) => {
   try {
@@ -17,7 +17,7 @@ const getSafeMap = async (_req, res) => {
 
 const getSafeMapByOwner = async (req, res) => {
   try {
-    const ownerId = req.user.id;
+    const ownerId = req.params.ownerId;
     const userWarnings = await safemap.find({ owner: ownerId }, { _id: 0, input: 1, location: 1 }).lean();
     if (!userWarnings) {
       throw new Error('No se encontraron avisos por este usuario');
@@ -40,7 +40,7 @@ const postSafeMap = async (req, res) => {
         type: "Point",
         coordinates: [longitud, latitud],
               },
-              owner: req.user._id
+              owner: req.user.id
     });
     await newContribution.save();
     res.status(201).send('Coordenadas almacenadas correctamente');
@@ -53,27 +53,53 @@ const postSafeMap = async (req, res) => {
 
 
 
-
-
 const editProfile = async (req, res, next) => {
-  const { email, password, username } = req.body;
-  try {
-    const profile = await User.findByIdAndUpdate(
-      req.params.edit_id,
-      { email, password, username },
-      { new: true }
-    ).select('-createdAt -updatedAt');
-
-    res.status(200).json(profile);
+    try {
+      const { _id: user_id } = req.user
+      const { email, password, username } = req.body;
+      if (!Types.ObjectId.isValid(user_id)) {
+        return res.status(400).json({ message: 'Invalid user id.' });
+    }
+    const updatedProfile = await User.findByIdAndUpdate (
+      user_id,
+      {
+        email,
+        password, 
+        username
+      },
+      {new: true}
+    )
+    res.status(200).json({message: 'User has been updated', updatedProfile: updatedProfile});
   } catch (err) {
-    next(err);
+      next(err)
   }
-};
+}
+
+
+const deleteUser = async (req, res, next) => {
+  try {
+    const { _id: user_id } = req.user
+        
+        if (!Types.ObjectId.isValid(user_id)) {
+            return res.status(400).json({ message: 'Invalid user id.' });
+        }
+
+        const user = await User.findByIdAndDelete(user_id)
+
+        if(!user) {
+            return res.status(404).json({message: "User not found."})
+        }
+
+        res.status(200).json({message: 'User successfully deleted.'});
+    } catch (err) {
+        next(err)
+    }
+}
 
 
 
 
-module.exports = { getSafeMap, getSafeMapByOwner, postSafeMap,  editProfile };
+module.exports = { getSafeMap, getSafeMapByOwner, postSafeMap,  editProfile , deleteUser };
 
 
 

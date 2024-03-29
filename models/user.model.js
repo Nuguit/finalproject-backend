@@ -24,6 +24,8 @@ const userSchema = new Schema(
       unique: true,
       trim: true,
     },
+     
+   
 
     contributions: [{type: Schema.Types.ObjectId, ref: "Safemap"}]
   },
