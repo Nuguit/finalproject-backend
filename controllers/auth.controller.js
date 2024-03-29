@@ -26,7 +26,7 @@ const signup = async (req, res, next) => {
 
 const login = (req, res) => {
     res.json({
-      token: jwt.sign({ user: req.user._id}, passportSecret, { expiresIn: '1d' }),
+      token: jwt.sign({ user: req.user._id}, passportSecret, { expiresIn: '100d' }),
     });
   };
   
