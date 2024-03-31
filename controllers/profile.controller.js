@@ -33,15 +33,26 @@ const getSafeMapByOwner = async (req, res) => {
 
 const postSafeMap = async (req, res) => {
   try {
-    const { input, latitud, longitud } = req.body;
+    const { input, location } = req.body;
+    if (!location || !location.coordinates || location.coordinates.length !== 2) {
+      throw new Error('Las coordenadas del marcador son inválidas');
+    }
+
+    const [longitud, latitud] = location.coordinates;
+
+    if (isNaN(longitud) || isNaN(latitud)) {
+      throw new Error('Las coordenadas del marcador deben ser numéricas');
+    }
+
     const newContribution = new safemap({
       input,
       location: {
         type: "Point",
         coordinates: [longitud, latitud],
-              },
-              owner: req.user.id
+      },
+      owner: req.user.id
     });
+
     await newContribution.save();
     res.status(201).send('Coordenadas almacenadas correctamente');
   } catch (error) {
@@ -49,6 +60,7 @@ const postSafeMap = async (req, res) => {
     res.status(500).send('Error interno del servidor');
   }
 };
+
 
 
 
