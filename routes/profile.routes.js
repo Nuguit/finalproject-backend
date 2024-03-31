@@ -4,8 +4,8 @@ const {
     getSafeMap, getSafeMapByOwner, postSafeMap, editProfile, deleteUser
 } = require ("../controllers/profile.controller");
 
-    router.get("/safeMap",/*[passport.authenticate('jwt', { session: false })],*/ getSafeMap);
-    router.get("/contribuciones",/*[passport.authenticate('jwt', { session: false })],*/ getSafeMapByOwner);
+    router.get("/safeMap",[passport.authenticate('jwt', { session: false })], getSafeMap);
+    router.get("/contribuciones",[passport.authenticate('jwt', { session: false })], getSafeMapByOwner);
     
     
     router.post("/safeMap", [passport.authenticate('jwt', { session: false })], postSafeMap); 
