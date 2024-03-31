@@ -15,10 +15,12 @@ const getSafeMap = async (_req, res) => {
   }
 };
 
-const getSafeMapByOwner = async (req, res) => {
+const contributions = async (req, res) => {
   try {
-    const ownerId = req.params.ownerId;
-    const userWarnings = await safemap.find({ owner: ownerId }, { _id: 0, input: 1, location: 1 }).lean();
+    const userId = req.user.id;
+    console.log('ID de usuario:', userId)
+    const userWarnings = await safemap.find({ owner: userId }, { _id: 0, input: 1, location: 1 }).lean();
+    console.log('Avisos de seguridad encontrados:', userWarnings)
     if (!userWarnings) {
       throw new Error('No se encontraron avisos por este usuario');
     }
@@ -111,7 +113,7 @@ const deleteUser = async (req, res, next) => {
 
 
 
-module.exports = { getSafeMap, getSafeMapByOwner, postSafeMap,  editProfile , deleteUser };
+module.exports = { getSafeMap, contributions, postSafeMap,  editProfile , deleteUser };
 
 
 

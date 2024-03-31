@@ -13,7 +13,8 @@ const signup = async (req, res, next) => {
         const result = await User.create({
             email: req.body.email,
             password: passwordCrypt,
-            username: req.body.username
+            username: req.body.username,
+            avatar: req.body.avatar || undefined,
             
         });
         res.json({error: false, contenido: result});
