@@ -28,7 +28,7 @@ const userSchema = new Schema(
     contributions: [{type: Schema.Types.ObjectId, ref: "Safemap"}],
     avatar: {
       type: String,
-      default: "utils\avatarpic.jpg", 
+      default: " ", 
     }
   },
   {

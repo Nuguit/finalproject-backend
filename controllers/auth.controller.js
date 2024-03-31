@@ -14,7 +14,7 @@ const signup = async (req, res, next) => {
             email: req.body.email,
             password: passwordCrypt,
             username: req.body.username,
-            avatar: req.body.avatar || undefined,
+            avatar: req.body.avatar,
             
         });
         res.json({error: false, contenido: result});

@@ -79,7 +79,8 @@ const editProfile = async (req, res, next) => {
       {
         email,
         password, 
-        username
+        username,
+        avatar
       },
       {new: true}
     )
@@ -110,10 +111,26 @@ const deleteUser = async (req, res, next) => {
     }
 }
 
+const uploadAvatar = async (req, res, next) => {
+  try {
+    const { _id: userId } = req.user;
+    const imageUrl = req.file.path; // O la URL de la imagen en Cloudinary
+
+    // Suponiendo que estás utilizando Cloudinary
+    const cloudinaryResponse = await cloudinary.uploader.upload(req.file.path); // Sube la imagen a Cloudinary
+    const cloudImage = cloudinaryResponse.secure_url; // Obtiene la URL de la imagen de la respuesta de Cloudinary
+
+    // Actualiza el campo de avatar del usuario en la base de datos
+    await User.findByIdAndUpdate(userId, { avatarUrl: cloudImage });
+
+    res.status(200).json({ message: "Avatar actualizado exitosamente.", imageUrl });
+  } catch (error) {
+    next(error);
+  }
+};
 
 
-
-module.exports = { getSafeMap, contributions, postSafeMap,  editProfile , deleteUser };
+module.exports = { getSafeMap, contributions, postSafeMap,  editProfile , deleteUser, uploadAvatar };
 
 
 
