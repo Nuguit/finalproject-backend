@@ -70,7 +70,7 @@ const postSafeMap = async (req, res) => {
 const editProfile = async (req, res, next) => {
     try {
       const { _id: user_id } = req.user
-      const { email, password, username } = req.body;
+      const { email, password, username, avatar } = req.body;
       if (!Types.ObjectId.isValid(user_id)) {
         return res.status(400).json({ message: 'Invalid user id.' });
     }
@@ -84,7 +84,7 @@ const editProfile = async (req, res, next) => {
       },
       {new: true}
     )
-    res.status(200).json({message: 'User has been updated', updatedProfile: updatedProfile});
+    res.status(200).json({message: 'User has been updated', user: updatedProfile});
   } catch (err) {
       next(err)
   }
