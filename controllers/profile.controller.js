@@ -18,9 +18,7 @@ const getSafeMap = async (_req, res) => {
 const contributions = async (req, res) => {
   try {
     const userId = req.user.id;
-    console.log('ID de usuario:', userId)
     const userWarnings = await safemap.find({ owner: userId }, { _id: 0, input: 1, location: 1 }).lean();
-    console.log('Avisos de seguridad encontrados:', userWarnings)
     if (!userWarnings) {
       throw new Error('No se encontraron avisos por este usuario');
     }
@@ -39,7 +37,6 @@ const postSafeMap = async (req, res) => {
     if (!location || !location.coordinates || location.coordinates.length !== 2) {
       throw new Error('Las coordenadas del marcador son inválidas');
     }
-
     const [longitud, latitud] = location.coordinates;
 
     if (isNaN(longitud) || isNaN(latitud)) {
