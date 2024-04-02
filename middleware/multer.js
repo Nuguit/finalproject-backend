@@ -2,10 +2,10 @@ const multer = require("multer");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/avatars"); // Directorio donde se guardarán los avatares
+    cb(null, "uploads/avatars"); 
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname); // Utiliza el nombre original del archivo
+    cb(null, file.originalname); 
   },
 });
 

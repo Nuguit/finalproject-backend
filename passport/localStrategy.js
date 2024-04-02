@@ -41,14 +41,12 @@ passport.use(
             try {
                 let user = await User.findOne ({email}).select("+password");
                 if (!user) {
-                    console.log("Usuario no encontrado");
                     return done (null, false);
                 }
                 if(!validoPass(password, user.password.hash, user.password.salt)){
-                    console.log("Contraseña incorrecta");
                     return done (null, false);
                 }
-            console.log("Login correcto");
+            ;
             return done(null, user);
         }  catch (error){
             return done(error);
