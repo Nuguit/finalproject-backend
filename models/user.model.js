@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 
 const userSchema = new Schema(
   {
-        email: {
+    email: {
       type: String,
       required: [true, 'Necesitamos un mail :('],
       unique: true,
@@ -24,11 +24,11 @@ const userSchema = new Schema(
       unique: true,
       trim: true,
     },
-     
-    contributions: [{type: Schema.Types.ObjectId, ref: "Safemap"}],
+
+    contributions: [{ type: Schema.Types.ObjectId, ref: "Safemap" }],
     avatar: {
       type: String,
-      default: " ", 
+      default: " ",
     }
   },
   {

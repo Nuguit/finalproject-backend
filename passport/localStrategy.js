@@ -3,7 +3,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const User = require("../models/user.model");
-const {validoPass} = require("../utils/auth");
+const { validoPass } = require("../utils/auth");
 const passportSecret = process.env.PASSPORT_SECRET;
 
 passport.use(
@@ -15,12 +15,12 @@ passport.use(
         async function (jwtPayload, done) {
             try {
                 const user = await User.findById(jwtPayload.user);
-                if(!user){
-                    return done (null, false);
+                if (!user) {
+                    return done(null, false);
                 }
-                
-                return done (null, user);
-            } catch (error){
+
+                return done(null, user);
+            } catch (error) {
                 return done(error);
             }
         }
@@ -37,23 +37,23 @@ passport.use(
             usernameField: "email",
             passwordField: "password",
         },
-        async function (email,password, done) {
+        async function (email, password, done) {
             try {
-                let user = await User.findOne ({email}).select("+password");
+                let user = await User.findOne({ email }).select("+password");
                 if (!user) {
-                    return done (null, false);
+                    return done(null, false);
                 }
-                if(!validoPass(password, user.password.hash, user.password.salt)){
-                    return done (null, false);
+                if (!validoPass(password, user.password.hash, user.password.salt)) {
+                    return done(null, false);
                 }
-            ;
-            return done(null, user);
-        }  catch (error){
-            return done(error);
-        
-        
-        
+                ;
+                return done(null, user);
+            } catch (error) {
+                return done(error);
+
+
+
+            }
         }
-    }
     )
 )

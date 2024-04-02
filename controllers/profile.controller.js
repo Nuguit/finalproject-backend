@@ -65,25 +65,25 @@ const postSafeMap = async (req, res) => {
 
 
 const editProfile = async (req, res, next) => {
-    try {
-      const { _id: user_id } = req.user
-      const { email, password, username, avatar } = req.body;
-      if (!Types.ObjectId.isValid(user_id)) {
-        return res.status(400).json({ message: 'Invalid user id.' });
+  try {
+    const { _id: user_id } = req.user
+    const { email, password, username, avatar } = req.body;
+    if (!Types.ObjectId.isValid(user_id)) {
+      return res.status(400).json({ message: 'Invalid user id.' });
     }
-    const updatedProfile = await User.findByIdAndUpdate (
+    const updatedProfile = await User.findByIdAndUpdate(
       user_id,
       {
         email,
-        password, 
+        password,
         username,
         avatar
       },
-      {new: true}
+      { new: true }
     )
-    res.status(200).json({message: 'User has been updated', user: updatedProfile});
+    res.status(200).json({ message: 'User has been updated', user: updatedProfile });
   } catch (err) {
-      next(err)
+    next(err)
   }
 }
 
@@ -91,29 +91,29 @@ const editProfile = async (req, res, next) => {
 const deleteUser = async (req, res, next) => {
   try {
     const { _id: user_id } = req.user
-        
-        if (!Types.ObjectId.isValid(user_id)) {
-            return res.status(400).json({ message: 'Invalid user id.' });
-        }
 
-        const user = await User.findByIdAndDelete(user_id)
-
-        if(!user) {
-            return res.status(404).json({message: "User not found."})
-        }
-
-        res.status(200).json({message: 'User successfully deleted.'});
-    } catch (err) {
-        next(err)
+    if (!Types.ObjectId.isValid(user_id)) {
+      return res.status(400).json({ message: 'Invalid user id.' });
     }
+
+    const user = await User.findByIdAndDelete(user_id)
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." })
+    }
+
+    res.status(200).json({ message: 'User successfully deleted.' });
+  } catch (err) {
+    next(err)
+  }
 }
 
 const uploadAvatar = async (req, res, next) => {
   try {
     const { _id: userId } = req.user;
-    const imageUrl = req.file.path; 
+    const imageUrl = req.file.path;
     const cloudinaryResponse = await cloudinary.uploader.upload(req.file.path);
-    const cloudImage = cloudinaryResponse.secure_url; 
+    const cloudImage = cloudinaryResponse.secure_url;
     await User.findByIdAndUpdate(userId, { avatarUrl: cloudImage });
 
     res.status(200).json({ message: "Avatar actualizado exitosamente.", imageUrl });
@@ -123,7 +123,7 @@ const uploadAvatar = async (req, res, next) => {
 };
 
 
-module.exports = { getSafeMap, contributions, postSafeMap,  editProfile , deleteUser, uploadAvatar };
+module.exports = { getSafeMap, contributions, postSafeMap, editProfile, deleteUser, uploadAvatar };
 
 
 
