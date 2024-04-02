@@ -34,20 +34,14 @@ npm run dev
 
 
 
-# API Routes
-
-//AQUÍ IRÍAN EL RESTO DE RUTAS GENERALES?
-
-
-
-
 ## **User routes**:
 
 | URL path                    | HTTP Method       | Response                          | Action                        |
 | :--------------------------:|:-----------------:| :--------------------------------:| :----------------------------:|
 | /safemap                    | GET               | [safemap]                         | Get Safemap with all the warnings|
-
-| /contributions              | GET               | [contributions]                   | Your contributions to the SafeMap |
+| /contribuciones             | GET               | [contributions]                   | Your contributions to the SafeMap |
+| /tuperfil/:id               | PUT               | [profile]                         | Edit your profile             |
+| /tuperfil/:id               | DELETE            | [profile]                         | Delete your profile           |
 
 ## **Auth routes**:
 
@@ -55,16 +49,17 @@ npm run dev
 | :--------------------------:|:-----------------:| :--------------------------------:| :----------------------------:|
 | /auth/signup                | POST              | [signup]                          | Create a new user             |
 | /auth/login                 | POST              | [login]                           | Log user in                   |
+| /auth/verify                | POST              | [verify]                          | Verify user                   |
 
 ## **Upload routes**:   
 
 | URL path                    | HTTP Method       | Response                          | Action                        |
 | :--------------------------:|:-----------------:| :--------------------------------:| :----------------------------:|
-| /safemap/:added             | POST              | [safemap/:added]                  | Warning added on the SafeMap 
+| /safemap/:added             | POST              | [safemap/added]                  | Warning added on the SafeMap 
                                                                                         and prior contributions list  |
 | /safemap                    | POST              | [safemap]                         | Send coordinates and input 
                                                                                         through Safemap
-                                                                                        
-                                                                                        
+| /safemap                    | POST              | [safemap]                         | Post warnings on the SafeMap                                                                                        
+| /tuperfil/avatar            | POST              | [tuperfil/avatar]                 | Change Avatar  |                                                                                       
                                                                                         
                                                                                          
